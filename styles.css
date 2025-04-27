@@ -1,0 +1,419 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: rgb(246, 246, 246);
+  }
+
+
+/* Basic styles */
+#text {
+    font-size: 20px;
+    text-align: center; /* Align text to the left */
+    width: 85%;
+    margin-left: 100px;
+  }
+  
+  #text span {
+    display: inline-block; /* Keep the span as inline-block for proper word spacing */
+    transition: color 0.3s ease, transform 0.3s ease;
+    margin-right: 10px; /* Adjust gap between words */
+  }
+  
+  /* Hover effect on whole word */
+  #text span:hover {
+    color: #b6ffe7; /* Lighter color */
+    transform: scale(1.1); /* Slightly scale up the word */
+  }
+  
+
+  
+  
+  
+  
+  
+  .gif-background {
+    position: fixed; /* Fixed position to stay in place */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('images/tech4.gif'); /* Replace with your actual gif path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1; /* Keeps the GIF in the background, behind other content */
+  }
+  .gif-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  }
+
+  section {
+    padding: 100px 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+  }
+
+  video {
+    border: 3px solid #0f3c31; /* try #31D0AA #c912f6, #00f0ff, or rgba(255,255,255,0.2) */
+    border-radius: 12px;
+    box-shadow: 0 0 12px #31D0AA;
+    width: 1200px;
+  }
+
+  .quiz-container {
+    
+    border-radius: 12px;
+    width: 90%;
+    text-align: center;
+    justify-content: left;
+    padding-left: 70px;
+  }
+  
+  #score {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Remove auto-centering */
+    margin-left: 1px; /* Adjust this to move more left or right */
+  }
+  
+  
+  
+  #question-title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .question-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 190px;
+  }
+  
+  .question-box {
+    flex: 1;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s, background-color 0.3s;
+  }
+  
+  .question-box:hover {
+    transform: scale(1.02);
+  }
+  
+  .question-box img {
+    width: 500px;
+    height: 350px;
+    border-radius: 8px;
+  }
+
+  /* Shake for wrong answer */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+  }
+
+  .shake {
+    animation: shake 0.4s ease;
+  }
+
+  /* Float up for correct answer */
+  @keyframes floatUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+  }
+
+  .float-up {
+    animation: floatUp 0.5s ease forwards;
+  }
+
+  /* Border indicators */
+  .correct-border {
+    border: 10px solid #4CAF50; /* green */
+  }
+
+  .wrong-border {
+    border: 10px solid #F44336; /* red */
+  }
+
+  .icon.correct {
+    box-shadow: 0 0 20px #31D0AA;
+  }
+  
+  .icon.wrong {
+    box-shadow: 0 0 20px #c912f6;
+  }
+  
+  .icon.animate {
+    animation: pop 0.4s ease-out;
+  }
+  
+  
+  /* Add the pop-out animation to the button when selected */
+  .pop-out {
+    animation: pop-out 0.3s ease-in-out;
+  }
+  
+  /* Add the shake animation to the button when selected incorrectly */
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes score-jump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.score-jump {
+  animation: score-jump 0.4s ease;
+}
+
+
+  /* Fade-in animation for icons */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+
+@keyframes score-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+.score-shake {
+  animation: score-shake 0.5s ease;
+}
+
+.score-wrong {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  padding: 2px 6px;
+  transition: background-color 0.5s ease;
+}
+
+  
+  /* Style for the tick and X icons */
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem; /* Increase size to cover the button */
+    color: white;    /* Set the color to white */
+    z-index: 10;     /* Ensure the icon is above other elements */
+    opacity: 0;
+    stroke-dasharray: 48;  /* Length of the path */
+    stroke-dashoffset: 48; /* Start with no visible stroke */
+    transition: opacity 0.5s ease-in-out;
+    font-size: 100px; /* Make it as big as needed */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Icon container styles */
+.icon-container {
+    display: flex;
+    justify-content: center; /* Center the icons */
+    align-items: center; /* Vertically center the icons */
+    position: absolute; /* Absolute position inside the box */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Prevent the icons from blocking clicks */
+    position: relative;
+    overflow: hidden;
+  }
+
+  .icon-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: inherit;
+    filter: blur(10px);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+  
+  .icon-container i {
+    width: 100%; /* Make the icon's width 100% of the container */
+    height: 100%; /* Make the icon's height 100% of the container */
+    font-size: 200px; /* Adjust the font size to fill up more space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1.5); /* Scale to increase the size */
+    transition: transform 0.2s ease-in-out; /* Smooth scaling */
+  }
+  
+  .icon-container i.correct {
+    color: green;
+  }
+  
+  .icon-container i.incorrect {
+    color: red;
+  }
+  
+  /* Ensure the box has relative positioning so the icons stay inside */
+  .box {
+    position: relative;
+    width: 200px; /* Example size of the box */
+    height: 200px; /* Example size of the box */
+    border: 2px solid #000;
+    overflow: hidden; /* Hide anything outside the box */
+  }
+  
+  
+  /* Animation for tick or X */
+  .icon.draw {
+    opacity: 1; /* Make the icon visible */
+    stroke-dashoffset: 0; /* Animate the stroke to 0 (complete the path) */
+    transition: stroke-dashoffset 0.5s ease; /* Draw the stroke */
+  }
+
+.icon-tick {
+    font-size: 7rem; /* Increase size for the tick */
+}
+
+.icon-x {
+    font-size: 7rem; /* Increase size for the X */
+}
+
+/* Reduced opacity for text when answer is clicked */
+.text-reduced-opacity {
+    opacity: 0.4; /* Adjust the opacity as needed */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+#retry-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#retry-btn {
+  background-color: #31D0AA;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transform: scale(0); /* Start tiny */
+  animation: pop 0.5s ease forwards;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+#retry-btn:hover {
+  background-color: #28b194; /* Slightly darker on hover */
+  transform: scale(1.05);
+}
+
+
+.finish-title {
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 3rem; /* Bigger size */
+  text-align: center;
+  color: #31D0AA; /* Same as score color */
+  margin-bottom: 20px;
+  animation: popUp 0.6s ease;
+}
+
+@keyframes popUp {
+  0% {
+      transform: scale(0);
+      opacity: 0;
+  }
+  60% {
+      transform: scale(1.2);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+  
+  
+  
+  
